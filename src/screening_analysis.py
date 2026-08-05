@@ -942,7 +942,7 @@ def generate_dwell_time_sensitivity(seed: int = 20260608, frames: int = 15_000) 
 
 def copy_manuscript_plot_set() -> None:
     screening_stems = [
-        "geo_s_band_d2c_voice_link_simulation_flow",
+        "GEO_SBand_Voice_Link_Screening_Workflow_Refined",
         "geo_satphone_doppler_rain_sensitivity",
         "geo_satphone_voice_availability",
         "geo_satphone_voice_availability_band",

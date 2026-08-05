@@ -65,15 +65,15 @@ GEO S-Band VoiceLink 用于估计手持卫星电话形态的终端，在远程�
 ## 图示概览
 
 <p align="center">
-  <a href="expected_outputs/figures/all/step1_python_matlab_simulink_cosimulation_imagegen.png">
-    <img src="expected_outputs/figures/all/step1_python_matlab_simulink_cosimulation_imagegen.png" alt="参考输出的 Python-MATLAB-Simulink 严格联合仿真流程" width="92%">
+  <a href="expected_outputs/figures/all/Step1_GEO_SBand_CoSimulation_Workflow.png">
+    <img src="expected_outputs/figures/all/Step1_GEO_SBand_CoSimulation_Workflow.png" alt="参考输出的 Python-MATLAB-Simulink 严格联合仿真流程" width="92%">
   </a>
 </p>
 <p align="center"><em>图 1｜Python 负责编排工作流，MATLAB/Simulink 提供严格参考可用性路径。</em></p>
 
 <p align="center">
-  <a href="expected_outputs/figures/all/geo_s_band_d2c_voice_link_simulation_flow.png">
-    <img src="expected_outputs/figures/all/geo_s_band_d2c_voice_link_simulation_flow.png" alt="GEO S-band 语音链路低尾筛选工作流" width="92%">
+  <a href="expected_outputs/figures/all/GEO_SBand_Voice_Link_Screening_Workflow_Refined.png">
+    <img src="expected_outputs/figures/all/GEO_SBand_Voice_Link_Screening_Workflow_Refined.png" alt="GEO S-band 语音链路低尾筛选工作流" width="92%">
   </a>
 </p>
 <p align="center"><em>图 2｜从公开代理参数到可用性与灵敏度输出的低尾语音链路筛选流程。</em></p>

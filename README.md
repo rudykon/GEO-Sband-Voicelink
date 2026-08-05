@@ -65,15 +65,15 @@ See [RESULTS.md](RESULTS.md) for the full result summary and references to commi
 ## Visual Summary
 
 <p align="center">
-  <a href="expected_outputs/figures/all/step1_python_matlab_simulink_cosimulation_imagegen.png">
-    <img src="expected_outputs/figures/all/step1_python_matlab_simulink_cosimulation_imagegen.png" alt="Strict Python-MATLAB-Simulink co-simulation workflow for reference outputs" width="92%">
+  <a href="expected_outputs/figures/all/Step1_GEO_SBand_CoSimulation_Workflow.png">
+    <img src="expected_outputs/figures/all/Step1_GEO_SBand_CoSimulation_Workflow.png" alt="Strict Python-MATLAB-Simulink co-simulation workflow for reference outputs" width="92%">
   </a>
 </p>
 <p align="center"><em>Figure 1 | Python orchestrates the workflow, while MATLAB/Simulink provides the strict reference availability path.</em></p>
 
 <p align="center">
-  <a href="expected_outputs/figures/all/geo_s_band_d2c_voice_link_simulation_flow.png">
-    <img src="expected_outputs/figures/all/geo_s_band_d2c_voice_link_simulation_flow.png" alt="Low-tail GEO S-band voice-link screening workflow" width="92%">
+  <a href="expected_outputs/figures/all/GEO_SBand_Voice_Link_Screening_Workflow_Refined.png">
+    <img src="expected_outputs/figures/all/GEO_SBand_Voice_Link_Screening_Workflow_Refined.png" alt="Low-tail GEO S-band voice-link screening workflow" width="92%">
   </a>
 </p>
 <p align="center"><em>Figure 2 | Low-tail voice-link screening from public proxy parameters to availability and sensitivity outputs.</em></p>

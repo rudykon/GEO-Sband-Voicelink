@@ -164,7 +164,7 @@ with tab_dwell:
 st.subheader("Reference Figure Gallery")
 figs = figure_paths(
     [
-        "geo_s_band_d2c_voice_link_simulation_flow.png",
+        "GEO_SBand_Voice_Link_Screening_Workflow_Refined.png",
         "geo_satphone_screening_baseline_comparison.png",
         "geo_satphone_sensitivity_ranking.png",
         "geo_satphone_dwell_time_sensitivity.png",
