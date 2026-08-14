@@ -2,6 +2,10 @@
   <a href="README.md">English</a> · <strong>简体中文</strong>
 </p>
 
+<p align="center">
+  <img src="docs/brand-mark.svg" width="520" alt="GEO VoiceLink 品牌标识">
+</p>
+
 <h1 align="center">GEO S-Band VoiceLink</h1>
 
 <p align="center">
@@ -240,3 +244,4 @@ run_voice_link_reference_cosim("../outputs/data/reference_cosim/voice_link_cosim
 ## 许可证
 
 本项目采用 [MIT License](LICENSE)。
+

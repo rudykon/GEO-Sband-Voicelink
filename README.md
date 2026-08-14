@@ -2,6 +2,10 @@
   <strong>English</strong> · <a href="README.zh-CN.md">简体中文</a>
 </p>
 
+<p align="center">
+  <img src="docs/brand-mark.svg" width="520" alt="GEO VoiceLink brand mark">
+</p>
+
 <h1 align="center">GEO S-Band VoiceLink</h1>
 
 <p align="center">
@@ -240,3 +244,4 @@ Numerical values can change slightly across NumPy/SciPy/Matplotlib versions, but
 ## License
 
 This project is released under the [MIT License](LICENSE).
+
