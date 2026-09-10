@@ -1,6 +1,0 @@
-scenario,scenario_model_key,scenario_label,availability_minus_1db,availability_baseline,availability_plus_1db,threshold_ebn0_db,one_sigma_proxy
-open_plain,open,Open plain,1.0,1.0,1.0,5.03216451393463,PHY-threshold/posture calibration +/-1 dB
-forest_edge,suburban,Forest edge,0.99546,0.99292,0.98842,5.03216451393463,PHY-threshold/posture calibration +/-1 dB
-canyon_valley,urban,Canyon valley,0.860975,0.843095,0.82495,5.03216451393463,PHY-threshold/posture calibration +/-1 dB
-moving_trail,car,Moving trail,0.691015,0.66371,0.63368,5.03216451393463,PHY-threshold/posture calibration +/-1 dB
-tent_shelter,indoor_window,Tent/shelter,0.380955,0.360705,0.33806,5.03216451393463,PHY-threshold/posture calibration +/-1 dB

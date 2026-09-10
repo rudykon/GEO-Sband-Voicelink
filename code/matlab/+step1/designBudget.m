@@ -1,0 +1,53 @@
+function budget = designBudget(cfg, options)
+%DESIGNBUDGET Preflight allocation bounds for the 16 GB CPU design workflow.
+% The native launcher enforces process-tree commit and whole-command time.
+% This conservative array estimate bounds numerical work before allocation;
+% it is not a substitute for measuring MATLAB/Simulink process memory.
+arguments
+    cfg (1,1) struct
+    options.CompareBaseline (1,1) logical = false
+end
+compareBaseline = options.CompareBaseline;
+options = struct('matlab_seconds', 540, 'estimated_array_limit_mib', 1024);
+if isfield(cfg, 'design') && isfield(cfg.design, 'resource_budget')
+    provided = cfg.design.resource_budget;
+    if ~isstruct(provided) || ~isscalar(provided)
+        error('step1:DesignBudget', 'design.resource_budget must be one object.');
+    end
+    for field = string(fieldnames(options)).'
+        if isfield(provided, field), options.(field) = provided.(field); end
+    end
+end
+localRange(options.matlab_seconds, 1, 540, 'matlab_seconds');
+localRange(options.estimated_array_limit_mib, 1, 1024, 'estimated_array_limit_mib');
+[~, work] = step1.designOptions(cfg, 'step1:DesignBudget');
+% Includes repeated temporary vectors and table/string overhead, with an
+% extra fixed reserve for summaries and native Simulink signal copies.
+estimatedBytes = (1 + double(compareBaseline)) * ...
+    (1024 * work.channel_frames + 2048 * work.export_trace_rows + 64 * 1024^2);
+if estimatedBytes > options.estimated_array_limit_mib * 1024^2
+    error('step1:DesignBudget', ...
+        'Estimated numerical arrays %.1f MiB exceed the configured %.1f MiB budget.', ...
+        estimatedBytes / 1024^2, options.estimated_array_limit_mib);
+end
+budget = struct('policy', 'cpu_serial_bounded_macro_chain', ...
+    'matlab_seconds', options.matlab_seconds, ...
+    'launch_to_exit_limit_seconds', 600, ...
+    'process_tree_limit_bytes', 8 * 1024^3, ...
+    'estimated_array_limit_bytes', options.estimated_array_limit_mib * 1024^2, ...
+    'estimated_array_bytes', estimatedBytes, 'channel_frames', work.channel_frames, ...
+    'export_trace_rows', work.export_trace_rows, 'case_count', work.case_count, ...
+    'case_sensitivity_frames', work.case_sensitivity_frames, ...
+    'comparison_requested', compareBaseline, ...
+    'total_case_sensitivity_frames', (1 + double(compareBaseline)) * ...
+        work.case_sensitivity_frames, ...
+    'gpu_required', false, ...
+    'gpu_compute_bytes', 0, 'parallel_pool_required', false);
+end
+
+function localRange(value, low, high, name)
+if ~isnumeric(value) || ~isreal(value) || ~isscalar(value) || ...
+        ~isfinite(value) || value < low || value > high
+    error('step1:DesignBudget', '%s must be finite and in [%g,%g].', name, low, high);
+end
+end

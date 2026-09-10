@@ -1,9 +1,0 @@
-object_name,available
-comm.ConvolutionalEncoder,1
-comm.ViterbiDecoder,1
-comm.PSKModulator,1
-comm.PSKDemodulator,1
-comm.AWGNChannel,1
-comm.RicianChannel,1
-comm.RayleighChannel,1
-comm.ErrorRate,1

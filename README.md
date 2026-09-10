@@ -1,247 +1,85 @@
-<p align="center">
-  <strong>English</strong> · <a href="README.zh-CN.md">简体中文</a>
-</p>
+# GEO卫星通话：模块化宏观链路平台
 
-<p align="center">
-  <img src="docs/brand-mark.svg" width="520" alt="GEO VoiceLink brand mark">
-</p>
+项目用于展示双向链路，以及比较新算法、新器件和总体方案。每个环节具有统一接口和默认实现；通过配置替换目标模块后，完整链路重新计算，并可与默认实现做配对对比。
 
-<h1 align="center">GEO S-Band VoiceLink</h1>
+MATLAB承担主计算，Simulink展示有端口的子系统并执行检查。模块内部可封装其他语言实现；语言比例不作为验收门槛。
 
-<p align="center">
-  <strong>Open screening toolkit for GEO S-band satellite-phone voice links</strong><br>
-  Python, Streamlit, MATLAB, and Simulink workflows for link closure, low-tail capacity, and voice-bearer availability.
-</p>
-
-<p align="center">
-  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3"></a>
-  <a href="#quick-start"><img src="https://img.shields.io/badge/Quick%20run-Python--only-2CA02C?style=flat-square" alt="Python-only quick run"></a>
-  <a href="#matlabsimulink-reference"><img src="https://img.shields.io/badge/Reference-MATLAB%2FSimulink-F28E2B?style=flat-square" alt="MATLAB and Simulink reference path"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-4C78A8?style=flat-square" alt="MIT License"></a>
-</p>
-
-<p align="center">
-  <a href="#overview">Overview</a> ·
-  <a href="#key-results">Results</a> ·
-  <a href="#visual-summary">Figures</a> ·
-  <a href="#quick-start">Quick Start</a> ·
-  <a href="#dashboard-and-pages">Dashboard</a> ·
-  <a href="#reproduction">Reproduction</a> ·
-  <a href="#matlabsimulink-reference">MATLAB</a> ·
-  <a href="#license">License</a>
-</p>
-
-> [!IMPORTANT]
-> This is a public-parameter screening toolkit. It is not a proprietary handset implementation, field-test dataset, vendor calibration package, or satellite-network access procedure.
-
-<a id="overview"></a>
-## Overview
-
-GEO S-Band VoiceLink estimates whether a handheld satellite-phone-style terminal can close a low-rate voice bearer in remote-area scenarios. The workflow models posture loss, shadowing, LOS/NLOS mixing, terrain blockage, residual Doppler, rain loss, and low-tail outage-capacity constraints.
-
-| Goal | Implemented approach | Public boundary |
-| --- | --- | --- |
-| Screen GEO S-band voice-link closure | Python link-budget, availability, and outage-capacity calculations | Uses public-style proxy parameters, not private measurements |
-| Expose low-tail risk | LOS/NLOS mixture compared with average-SNR and single-state baselines | Results are screening references, not vendor certification |
-| Keep reference outputs auditable | MATLAB Communications Toolbox threshold calibration and strict Simulink availability model | Full regeneration requires MATLAB, Simulink, and Communications Toolbox |
-| Make results easy to inspect | Committed CSV/JSON/PNG/PDF artifacts plus Streamlit and static HTML views | New local outputs are written to ignored `outputs/` |
-
-Normal engineering use does not require MATLAB/Simulink. The MATLAB/Simulink path is needed only when regenerating the promoted reference tables from scratch.
-
-<a id="key-results"></a>
-## Key Results
-
-For the 2.4 kbps voice bearer, the LOS/NLOS mixture model gives the following baseline availability:
-
-| Scenario | Availability | P10 Eb/N0 | Median Eb/N0 |
-| --- | ---: | ---: | ---: |
-| Open plain | 100.00% | 19.48 dB | 22.94 dB |
-| Forest edge | 99.29% | 14.67 dB | 22.30 dB |
-| Canyon valley | 84.31% | 1.65 dB | 18.91 dB |
-| Moving trail | 66.37% | -2.95 dB | 12.75 dB |
-| Tent/shelter | 36.07% | -14.48 dB | -0.33 dB |
-
-Average-SNR screening is too coarse for low-tail availability: it over-accepts canyon and moving-trail cases, then hard-rejects tent/shelter. The single-state lognormal model remains too optimistic in persistent NLOS states and overstates the tent/shelter result by 60.45 percentage points. The largest tested sensitivity is NLOS excess loss, with a maximum availability swing of 15.69 percentage points.
-
-See [RESULTS.md](RESULTS.md) for the full result summary and references to committed CSV/PNG/PDF artifacts under `expected_outputs/`.
-
-<a id="visual-summary"></a>
-## Visual Summary
-
-<p align="center">
-  <a href="expected_outputs/figures/all/Step1_GEO_SBand_CoSimulation_Workflow.png">
-    <img src="expected_outputs/figures/all/Step1_GEO_SBand_CoSimulation_Workflow.png" alt="Strict Python-MATLAB-Simulink co-simulation workflow for reference outputs" width="92%">
-  </a>
-</p>
-<p align="center"><em>Figure 1 | Python orchestrates the workflow, while MATLAB/Simulink provides the strict reference availability path.</em></p>
-
-<p align="center">
-  <a href="expected_outputs/figures/all/GEO_SBand_Voice_Link_Screening_Workflow_Refined.png">
-    <img src="expected_outputs/figures/all/GEO_SBand_Voice_Link_Screening_Workflow_Refined.png" alt="Low-tail GEO S-band voice-link screening workflow" width="92%">
-  </a>
-</p>
-<p align="center"><em>Figure 2 | Low-tail voice-link screening from public proxy parameters to availability and sensitivity outputs.</em></p>
-
-<details>
-<summary><strong>Open additional committed result figures</strong></summary>
-<br>
-
-<p align="center">
-  <a href="expected_outputs/figures/all/geo_satphone_screening_baseline_comparison.png">
-    <img src="expected_outputs/figures/all/geo_satphone_screening_baseline_comparison.png" alt="Average-SNR and single-state screening distort low-tail voice availability" width="86%">
-  </a>
-</p>
-<p align="center"><em>Figure 3 | Baseline comparisons show why low-tail LOS/NLOS mixture screening matters.</em></p>
-
-<p align="center">
-  <a href="expected_outputs/figures/all/geo_satphone_sensitivity_ranking.png">
-    <img src="expected_outputs/figures/all/geo_satphone_sensitivity_ranking.png" alt="Sensitivity ranking for 2.4 kbps low-tail screening" width="86%">
-  </a>
-</p>
-<p align="center"><em>Figure 4 | NLOS excess loss dominates the tested availability perturbations.</em></p>
-
-<p align="center">
-  <a href="expected_outputs/figures/all/geo_satphone_dwell_time_sensitivity.png">
-    <img src="expected_outputs/figures/all/geo_satphone_dwell_time_sensitivity.png" alt="NLOS dwell-time sensitivity across remote-area scenarios" width="86%">
-  </a>
-</p>
-<p align="center"><em>Figure 5 | Longer NLOS dwell times increase burst lengths even when stationary LOS probability is fixed.</em></p>
-
-<p align="center">
-  <a href="expected_outputs/figures/all/outage_capacity_scenarios.png">
-    <img src="expected_outputs/figures/all/outage_capacity_scenarios.png" alt="Outage-capacity comparison under LOS/NLOS mixture penalties" width="86%">
-  </a>
-</p>
-<p align="center"><em>Figure 6 | Outage-capacity views summarize scenario-level low-tail penalties.</em></p>
-
-</details>
-
-<a id="quick-start"></a>
-## Quick Start
-
-Minimal Python-only screening requires only NumPy:
-
-```bash
-git clone https://github.com/rudykon/geo-sband-voicelink.git
-cd geo-sband-voicelink
-
-python -m pip install -r requirements-lite.txt
-python quick_run.py
-```
-
-Run one scenario with an added implementation or channel loss:
-
-```bash
-python quick_run.py --scenario canyon --added-loss-db 2
-```
-
-Quick-run outputs are written to:
+## 项目结构
 
 ```text
-outputs/quick_run/quick_summary.csv
-outputs/quick_run/quick_summary.json
-outputs/quick_run/quick_summary.md
+code/matlab/        MATLAB入口、模块实现、Simulink构建、示例和测试
+config/            默认配置及可直接运行的对比/压力示例
+docs/              项目结构、模块开发、维护及公开验收材料
+scripts/           Windows运行器、资源限制、测试及GitHub准备脚本
+artifacts/         自动生成的本地运行产物（不上传）
 ```
 
-Use `--no-write` for console-only screening and `--list-scenarios` to inspect supported aliases.
+详细位置与新文件放置规则见[项目结构](docs/project_overview.md)。
 
-<a id="dashboard-and-pages"></a>
-## Dashboard And Pages
+## 完整运行
 
-Launch the Streamlit engineering dashboard:
+已验证环境：Windows、MATLAB R2026a；启用 `-UseSimulink` 时需要Simulink。默认计算不依赖Python环境。先在项目根目录执行：
 
-```bash
-python -m pip install -r requirements-dashboard.txt
-streamlit run app.py
+```powershell
+.\scripts\run_step1_matlab.ps1 -UseSimulink
+.\scripts\run_step1_matlab.ps1 -UseSimulink -CompareBaseline -ConfigPath .\config\examples\rf_device_comparison.json
 ```
 
-The dashboard supports scenario selection, proxy-parameter sliders, availability and baseline comparison, sensitivity ranking, and committed figure viewing.
+找不到MATLAB时，在命令后附加 `-MatlabExe "实际安装目录\bin\matlab.exe"`，或设置 `MATLAB_EXE`。没有Simulink时省略 `-UseSimulink`，仍可运行MATLAB整链和对比。
 
-Static and notebook views:
+默认配置为 `config/step1_macro_chain.json`。自定义时复制配置，在 `design.modules` 中选择自己的模块实现，再用 `-ConfigPath` 指向新文件。启动器保留 **600秒总时限、进程树8 GiB私有提交内存限制**，包含启动、计算、对比、Simulink、图表、报告和退出；超限记录失败。默认实现只使用CPU，不需要GPU或并行池。
 
-- [docs/index.html](docs/index.html) is the GitHub Pages result page. Enable GitHub Pages from the `docs/` folder to publish it.
-- [examples/quick_start.ipynb](examples/quick_start.ipynb) provides an editable notebook workflow for parameter changes and table inspection.
-
-<a id="reproduction"></a>
-## Reproduction
-
-Install the full optional Python environment:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-```
-
-Run the complete reference workflow:
-
-```bash
-python run_all.py
-```
-
-This invokes Python calculations, MATLAB/Simulink reference co-simulation, promotion of canonical CSV/JSON outputs, and screening-analysis figure generation. Newly generated artifacts are written under ignored `outputs/`:
-
-```text
-outputs/
-├── quick_run/
-├── data/
-├── figures/
-└── archive/
-```
-
-`python run_all.py --skip-reference-cosim` is development-only. It runs Python-only scripts and marks the output as non-reference because screening artifacts that require MATLAB/Simulink reference outputs are skipped.
-
-<a id="matlabsimulink-reference"></a>
-## MATLAB/Simulink Reference
-
-The reference path requires MATLAB, Simulink, and Communications Toolbox. MATLAB is detected from `MATLAB_EXE`, then `matlab` on `PATH`, then `D:\matlab\bin\matlab.exe`.
-
-From MATLAB:
+MATLAB中替换一个RF器件并对比：
 
 ```matlab
-cd("matlab_voice_link")
-run_voice_link_reference_cosim("../outputs/data/reference_cosim/voice_link_cosim_manifest.json")
+addpath("code/matlab")
+modules.handset_uplink = struct( ...
+    'implementation', 'step1.examples.rfDevice', ...
+    'parameters', struct('margin_gain_db',3,'extra_delay_ms',5));
+status = run_step1_all(Modules=modules, CompareBaseline=true, UseSimulink=true);
 ```
 
-Normally `run_all.py` creates the manifest and invokes this entry point through `matlab.exe -batch`. Expected staging outputs are written to `outputs/data/reference_cosim/`, and Python promotes canonical outputs to `outputs/data/voice_link/`. See [MATLAB_SIMULINK.md](MATLAB_SIMULINK.md) and [matlab_voice_link/README.md](matlab_voice_link/README.md) for details.
+示例器件增加3 dB余量和5 ms处理时延。`step1.examples.deviceCurve` 演示如何接入“余量→成功概率”曲线，示例数值应替换为自己的测量或标定数据。
 
-<a id="repository-map"></a>
-## Repository Map
+## 双向模块链
 
-| Path | Purpose |
-| --- | --- |
-| `quick_run.py` | One-command Python-only voice-link screening entry point |
-| `run_all.py` | Full Python + MATLAB/Simulink reference workflow |
-| `app.py` | Streamlit dashboard |
-| `src/` | Link budget, outage capacity, reference-output promotion, and screening analysis |
-| `matlab_voice_link/` | MATLAB/Simulink PHY calibration and reference availability scripts/models |
-| `expected_outputs/` | Committed reference CSV/JSON/PNG/PDF outputs |
-| `docs/` | Static GitHub Pages result page and assets |
-| `examples/` | Notebook quick-start workflow |
-| `RESULTS.md` | Detailed result summary |
-| `PUBLIC_RELEASE.md` | Public-release scope notes |
+```text
+手机上行 → 卫星前向转发 → 馈电下行 → 地面前向
+地面返回 → 馈电上行     → 卫星返回 → 手机下行
+```
 
-<a id="scope"></a>
-## Scope
+八个配置槽：`handset_uplink`、`satellite_forward`、`feeder_downlink`、`ground_forward`、`ground_return`、`feeder_uplink`、`satellite_return`、`handset_downlink`。
 
-Included:
+模块签名统一为 `[out,state] = implementation(in,parameters,context,state)`。帧编号、有效状态、累计时延和 `signals` 扩展数据真实传给下一个模块。用户实现可内部运行新算法、读取器件模型或封装其他语言工具，返回满足接口合同的结果即可。
 
-- Public-parameter Python screening workflow.
-- Streamlit dashboard and static HTML result page.
-- MATLAB/Simulink reference scripts and models.
-- Selected committed reference outputs under `expected_outputs/`.
+Simulink模型包含八个可替换子系统，统一6个输入、5个输出端口。默认模块由原生块重算；任意MATLAB自定义算法以显式适配器回放接入，仍检查有效状态和时延串接。也可通过 `design.simulink_overrides` 接入原生子系统。详见[模块开发指南](docs/module_development.md)。
 
-Excluded:
+## 输出
 
-- Proprietary handset implementation details.
-- Private field-test measurements or vendor calibration data.
-- Local regenerated outputs under `outputs/`.
-- Legacy local artifacts under `archive/`.
+每次运行写入 `artifacts/results/step1_design/runs/<run-id>/`：
 
-Numerical values can change slightly across NumPy/SciPy/Matplotlib versions, but the qualitative rankings should remain stable.
+- `run_status.json`、`resource_status.json`：运行阶段、检查结果和资源实测。
+- `staging/results/end_to_end_summary.csv`：双向可用率、帧数、中断与时延。
+- `staging/results/chain_stages.csv`：模块自身及逐段累计结果。
+- `staging/results/module_manifest.json`：实现名称、参数、源码路径与SHA-256。
+- `staging/results/effective_config.json`：包含运行时模块覆盖的有效配置。
+- `staging/results/module_comparison.csv`：请求对比时，全量配对帧改善/退化和指标变化。
+- `staging/results/baseline_end_to_end_summary.csv`：同配置、同种子的默认模块结果。
+- `staging/simulink/`、`staging/figures/`、`staging/report/`：模型、图表和报告。
 
-<a id="license"></a>
-## License
+统计和配对使用所有帧、所有独立重复。Simulink展示/检查每组第一重复前至多1500帧，覆盖所有配置的场景/速率组合。`end_to_end_availability` 是同一帧时隙双向服务都成功的比例。默认参数是工程假设，不能直接视为实测通话性能。
 
-This project is released under the [MIT License](LICENSE).
+## 验收结果
 
+98项测试通过。在16 GB内存、RTX 4070 Laptop 8 GB机器上，包含Simulink、图表和报告的默认整链实测65.37秒，自定义器件与基线对比65.49秒；进程树私有内存峰值均低于3.89 GiB。详见[验收记录](docs/validation/README.md)。
+
+测试与资源说明见[维护指南](docs/maintenance.md)，结构见[项目说明](docs/project_overview.md)。
+
+## GitHub准备
+
+```powershell
+.\scripts\prepare_github.ps1
+.\scripts\prepare_github.ps1 -CreateArchive
+```
+
+脚本按Git忽略规则核对上传文件、文档链接、凭据模式和单文件大小；第二条命令另生成 `dist/` 下的源码ZIP。不会创建远程仓库、提交或推送。详见[GitHub准备说明](docs/github.md)。

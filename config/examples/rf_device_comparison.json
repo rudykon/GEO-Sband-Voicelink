@@ -1,0 +1,17 @@
+{
+  "base_config": "../step1_macro_chain.json",
+  "overrides": {
+    "design": {
+      "modules": {
+        "handset_uplink": {
+          "implementation": "step1.examples.rfDevice",
+          "label": "Example RF device: +3 dB margin, +5 ms processing",
+          "parameters": {
+            "margin_gain_db": 3,
+            "extra_delay_ms": 5
+          }
+        }
+      }
+    }
+  }
+}

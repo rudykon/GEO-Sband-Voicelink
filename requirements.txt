@@ -1,4 +1,0 @@
--r requirements-dashboard.txt
-jupyter
-matplotlib
-scipy

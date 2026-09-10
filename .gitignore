@@ -1,17 +1,50 @@
-# Runtime-generated artifacts
-/outputs/
+# Local-only directories and generated run outputs.
+/artifacts/**
+!/artifacts/README.md
+/archive/**
 
-# Python caches
-__pycache__/
-*.py[cod]
-
-# MATLAB autosave and temporary files
-slprj/
-*.asv
-*.m~
-
-# OS/editor metadata
+# Local credentials, environments, scratch space, and editor state.
+/.local/
+/.tmp/
+/.venv/
+/.step1-*.claim
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.key
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+github_token.json
 .DS_Store
 Thumbs.db
-.vscode/
 .idea/
+.vscode/
+
+# MATLAB / Simulink generated files; model sources (.slx) remain eligible.
+slprj/
+sccprj/
+*.slxc
+*.mexw64
+*.mexa64
+*.mexmaci64
+*.mexmaca64
+*.asv
+*.autosave
+
+# Python and document build products.
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+*.aux
+*.bbl
+*.blg
+*.synctex.gz
+
+# Optional locally exported upload bundles.
+/dist/

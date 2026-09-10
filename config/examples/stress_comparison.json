@@ -1,0 +1,35 @@
+{
+  "base_config": "../step1_macro_chain.json",
+  "overrides": {
+    "design": {
+      "frames_per_replicate": 10000,
+      "link_delta_db": [
+        -7,
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "modules": {
+        "handset_uplink": {
+          "implementation": "step1.examples.rfDevice",
+          "label": "Example RF device: +3 dB margin, +5 ms processing",
+          "parameters": {
+            "margin_gain_db": 3,
+            "extra_delay_ms": 5
+          }
+        }
+      }
+    }
+  }
+}

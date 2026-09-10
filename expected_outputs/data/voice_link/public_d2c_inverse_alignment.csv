@@ -1,6 +1,0 @@
-check,public_anchor,model_mapping,public_value,model_value,residual_or_error,unit
-median_rsrp_gap,Starlink D2C median RSRP about 24 dB below terrestrial cellular,5 MHz to 31.25 kHz thermal-noise reduction,24.0,22.041199826559247,1.9588001734407534,dB
-pcs_to_sband_frequency_translation,PCS-band public D2C measurements translated to S-band path loss,20log10(2185/1990),0.0,0.8119672979346803,0.8119672979346803,dB
-outdoor_rate_scale_voice,announced outdoor DS2D data-service scale about 3 Mbps per beam,rate gap to 2.4 kbps voice bearer,3000000.0,2400.0,30.969100130080562,dB rate ratio
-outdoor_rate_scale_voice_text,announced outdoor DS2D data-service scale about 3 Mbps per beam,rate gap to 100 kbps voice+text service,3000000.0,100000.0,14.771212547196624,dB rate ratio
-measurement_space_mae,aggregate public D2C anchors with directly comparable dB quantities,mean absolute residual over RSRP and frequency-translation checks,,,1.3853837356877168,dB

@@ -1,0 +1,99 @@
+{
+    "schema_version":  "step1-current-acceptance-v1",
+    "status":  "passed",
+    "date":  "2026-09-09",
+    "environment":  {
+                        "os":  "Windows",
+                        "matlab":  "R2026a",
+                        "ram_gb":  16,
+                        "gpu":  "RTX 4070 Laptop 8 GB",
+                        "compute":  "CPU serial"
+                    },
+    "tested_source_fingerprint_sha256":  "1cb9a6abc22f10eadfca5a7d8808557f19a8a7b4ba4b4f341b40fc76227b10be",
+    "fingerprint_scope":  "Ordinal-sorted UTF-8 path:sha256 entries for code/, config/, scripts/, .gitignore, .gitattributes, joined with LF without a trailing LF",
+    "tests":  {
+                  "matlab":  74,
+                  "simulink_included":  12,
+                  "launcher":  11,
+                  "bounded_process":  8,
+                  "repository_preflight":  5,
+                  "total_passed":  98,
+                  "failed":  0,
+                  "incomplete":  0,
+                  "matlab_body_seconds":  123.775127
+              },
+    "resource_limits":  {
+                            "external_wall_seconds":  600,
+                            "process_tree_private_bytes":  8589934592
+                        },
+    "complete_runs":  [
+                          {
+                              "name":  "default",
+                              "external_wall_seconds":  65.3685966,
+                              "peak_private_bytes":  4166205440,
+                              "peak_working_set_bytes":  4752404480,
+                              "output_validation":  "passed",
+                              "simulink":  {
+                                               "cases":  15,
+                                               "checked_frames":  22500,
+                                               "native_modules":  8,
+                                               "adapter_modules":  0,
+                                               "decision_mismatches":  0
+                                           }
+                          },
+                          {
+                              "name":  "rf_device_comparison",
+                              "external_wall_seconds":  65.4853955,
+                              "peak_private_bytes":  4159373312,
+                              "peak_working_set_bytes":  4759969792,
+                              "output_validation":  "passed",
+                              "simulink":  {
+                                               "cases":  15,
+                                               "checked_frames":  22500,
+                                               "native_modules":  7,
+                                               "adapter_modules":  1,
+                                               "decision_mismatches":  0
+                                           }
+                          }
+                      ],
+    "paired_comparison":  {
+                              "cases":  15,
+                              "paired_frames":  90000,
+                              "improved_frames":  3243,
+                              "regressed_frames":  0,
+                              "unchanged_frames":  86757,
+                              "forward_delay_delta_ms":  5,
+                              "return_delay_delta_ms":  0
+                          },
+    "source_validation":  {
+                              "files_unchanged":  true,
+                              "source_cache_leaks":  0,
+                              "generated_reports_checked":  true
+                          },
+    "source_records":  [
+                           {
+                               "name":  "current_matlab_tests_20260909.json",
+                               "sha256":  "4ad82334b972c3f180dbd5b51fcdfbd14a5ed51de652f94e143d2bb132180de4"
+                           },
+                           {
+                               "name":  "current_launcher_tests_20260909.json",
+                               "sha256":  "69585400525d3465db3b9dfa64e9778b163d0fd9b41a1f0de41704fed9674182"
+                           },
+                           {
+                               "name":  "current_bounded_tests_20260909.json",
+                               "sha256":  "a30697feb6febdefb33a17c6f1c03d58cd050f33f738aed49a7f208875929ded"
+                           },
+                           {
+                               "name":  "current_preflight_tests_20260909.json",
+                               "sha256":  "55263210108e16cfca91e462b236e83e51005ae9904721e85264c9980fa4b7ac"
+                           },
+                           {
+                               "name":  "current_hardware_20260909.json",
+                               "sha256":  "53e67d70723144e66affd27742589fce48c17f589d870c3a56991794be57903e"
+                           },
+                           {
+                               "name":  "current_acceptance_20260909.json",
+                               "sha256":  "23edd736f73adcb389a78c0c325e57a1d804fcd27e1118cbcd053eaa807d66ef"
+                           }
+                       ]
+}

@@ -1,6 +1,0 @@
-scenario,voice_rate_bps,configuration,availability,absolute_drop_from_previous,median_ebn0_db,p10_ebn0_db
-urban,2400.0,free_space_thermal,1.0,0.0,24.608999588093305,24.608999588093305
-urban,2400.0,plus_posture,1.0,0.0,24.148645785122795,23.105035521745048
-urban,2400.0,plus_polarization_extra,1.0,0.0,22.648645785122795,21.605035521745048
-urban,2400.0,plus_los_nlos_shadow,0.91518,0.08482,18.947909117927537,1.7107141144199711
-urban,2400.0,plus_residual_frequency_loss,0.90468,0.010499999999999954,18.24790911792754,1.0107141144199718

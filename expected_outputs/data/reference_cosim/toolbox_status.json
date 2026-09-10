@@ -1,8 +1,0 @@
-{
-  "matlab_version": "26.1.0.3203278 (R2026a)",
-  "has_simulink": true,
-  "has_comm_toolbox": true,
-  "has_dsp_toolbox": true,
-  "has_satcom_toolbox": false,
-  "has_parallel_toolbox": 1
-}
